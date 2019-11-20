@@ -188,4 +188,75 @@ countzip <- table(zips)
 sort()
 rank()
 order()
-
+set.seed(13435)
+X <- data.frame("var1"=sample(1:5),"var2"=sample(6:10),"var3"=sample(11:15))
+X <- X[sample(1:5),]
+X <- X$var2[c(1,3)]=NA
+X[,1]
+X[,"var1"]
+X[1:2,"var2"]
+X[(X$var1 <= 3 & X$var3 > 11),] # and
+X[(X$var1 <= 3 | X$var3 > 15),] # or
+X[which(X$var2>8),] # filters out NA values
+sort(X$var1)
+sort(X$var1,decreasing=TRUE)
+sort(X$var2,na.last=TRUE)
+X[order(X$var1),]
+X[order(X$var1,X$var3),]
+##
+library(plyr)
+arrange(X,var1) #does same as above
+arrange(X,desc(var1)) #descending order
+X$var4 <- rnorm(5) # adds new column
+Y <- cbind(X,rnorm(5)) # another way to add a new column - this gives the col name rnorm(5)
+quantile(X$var2,na.rm=TRUE)
+quantile(X$varname,probs=c(0.5,0.75,0.9)) # gives 50%, 75% and 90%
+table(restData$zipCode,useNA="ifany")
+table(restData$councilDistrict,restData$zipCode)
+sum(is.na(restData$councilDistrict)) # returns number
+any(is.na(restData$councilDistrict)) # returns TRUE/FALSE
+all(restData$zipCode > 0) # returns TRUE/FALSE
+colSums(is.na(restData)) # returns number of NAs for each column
+all(colSums(is.na(restData))==0) # returns TRUE/FALSE about whether there are ANY missing values in restData
+table(restData$zipCode %in% c("21212"))
+table(restData$zipCode %in% c("21212","21213"))
+restData[restData$zipCode %in% c("21212","21213"),]
+data(UCBAdmissions)
+DF = as.data.frame(UCBAdmissions)
+summary(DF)
+xt <- xtabs(Freq~Gender+Admit,data=DF)
+warpbreaks$replicate <- rep(1:9,len=54)
+xt = xtabs(breaks ~.,data=warpbreaks)
+ftable(xt)
+fakeData=rnorm(1e5)
+object.size(fakeData)
+print(object.size(fakeData),units="Mb")
+abs(x)
+sqrt(x)
+ceiling(x)
+floor(x)
+round(x,digits=n)
+signif(x,digits=n)
+cos(x)
+sin(x) # etc
+log(x)
+log2(x)
+log10(x)
+exp(x)
+library(reshape2)
+head(mtcars)
+mtcars$carname <- rownames(mtcars)
+carMelt <- melt(mtcars,id=c("carname","gear","cyl"),measure.vars=c("mpg","hp"))
+head(carMelt,n=3)
+cylData <- dcast(carMelt, cyl~variable) # default length of each thing
+cylData <- dcast(carMelt, cyl~variable,mean) # picks the mean for each thing
+head(InsectSprays)
+tapply(InsectSprays$count,InsectSprays$spray,sum)
+spIns = split(InsectSprays$count,InsectSprays$spray)
+sprCount = lapply(spIns,sum)
+unlist(sprCount)
+sapply(spIns,sum)
+ddply(InsectSprays,.(spray),summarize,sum=sum(count))
+spraySums <- ddply(InsectSprays,.(spray),summarize,sum=ave(count,FUN=sum))
+dim(spraySums)
+head(spraySums)
