@@ -271,3 +271,4 @@ created = h5createFile("example.h5")
 created
        
        --
+hist(subset(pollution, region=="west")$pm25, col="green")
