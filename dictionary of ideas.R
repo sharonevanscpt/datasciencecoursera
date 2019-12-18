@@ -35,6 +35,7 @@ x <- list(a=1,b=2,c=3)
 m <- matrix(1:4), nrow=2, ncol=3)
 dimnames(m) <- list(c("a","b"),c("c","d")
 ## reading data
+download.file("url","desiredfilename.ext")
 read.table()
 data.matrix() # converts data.frame to matrix format
 read.csv()
@@ -260,3 +261,13 @@ ddply(InsectSprays,.(spray),summarize,sum=sum(count))
 spraySums <- ddply(InsectSprays,.(spray),summarize,sum=ave(count,FUN=sum))
 dim(spraySums)
 head(spraySums)
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install(version = "3.10")
+BiocManager::install("rhdf5")
+library(rhdf5)
+created = h5createFile("example.h5")
+created
+       
+       --
