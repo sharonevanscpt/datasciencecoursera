@@ -283,3 +283,13 @@ install.packages("dplyr")
 library(dplyr, warn.conflicts=FALSE, quietly = TRUE)
 install.packages("stringr")
 library(stringr)
+
+fileUrl <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
+fileName <- "household_power_consumption.zip"
+
+# Downloading and unzipping the raw data file, if necessary
+if (!file.exists(fileName)) {
+  print("Downloading the zip file...")
+  download.file(fileUrl, destfile = fileName, method = "curl")
+  unzip(fileName)
+}
