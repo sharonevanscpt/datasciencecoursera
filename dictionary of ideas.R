@@ -272,3 +272,14 @@ created
        
        --
 hist(subset(pollution, region=="west")$pm25, col="green")
+
+       ## Load Libraries
+list.of.packages <- c("data.table","plyr","dplyr","tibble","lubridate")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+lapply(list.of.packages, require, character.only = TRUE)
+       ## install and load packages
+install.packages("dplyr")
+library(dplyr, warn.conflicts=FALSE, quietly = TRUE)
+install.packages("stringr")
+library(stringr)
