@@ -293,3 +293,15 @@ if (!file.exists(fileName)) {
   download.file(fileUrl, destfile = fileName, method = "curl")
   unzip(fileName)
 }
+
+       
+mergedData <- merge(NEI, SCC, by= "SCC")
+
+# Plot 5
+png("plot5.png")
+print(ggplot(mergedData[mergedData$fips == "24510" & grepl("[Mm]otor|[Vv]ehicle", mergedData$SCC.Level.Two), ],
+             aes(factor(year), Emissions, )) +
+        geom_bar(stat = "identity") +
+        labs(title = "total PM2.5 emissions from motor vehicle sources in Baltimore VS year",
+             x = "year", y = "total PM2.5 emissions"))
+dev.off()       
