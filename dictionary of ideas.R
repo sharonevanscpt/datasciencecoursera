@@ -305,3 +305,27 @@ print(ggplot(mergedData[mergedData$fips == "24510" & grepl("[Mm]otor|[Vv]ehicle"
         labs(title = "total PM2.5 emissions from motor vehicle sources in Baltimore VS year",
              x = "year", y = "total PM2.5 emissions"))
 dev.off()       
+
+x1=distict(mydata) # distinct function is used to eliminate duplicates
+mydata <- select(mydata, -Index, -State) # selects all except names columns
+mydata <- select(mydata, -c(Index,State)) # selects all except names columns
+mydata <- select(mydata, -starts_with("I")) # selects all except names columns
+mydata6 <- rename(mydata, Index1=Index) # renames Index to Index1
+mydata7 <- filter(mydata, Index=="A") # retain only rows where index==A
+mydata7 <- filter(mydata, Index %in% c("A","C")) # retains As and Cs rows
+mydata8 <- filter(mydata, Index %in% c("A","C") & Y2002 >= 130000)
+mydata10 <- filter(mydata, grepl("Ar",State)) # records wherein column state contains 'Ar' in their name
+
+summarise(mydata, Y2015_mean = mean(Y2015), Y2015_med=median(T2015)) # calculating mean and median for the variable Y2015
+summarise_at(mydata, cars(Y2005,Y2006), list(n=~n(), mean, median))
+# pipe operators
+filter(dataframe, variable==value) # same as...
+dataframe %>% filter(variable==value)
+groupdat <- newdat %>%
+       group_by(EVTYPE) %>%
+       summarise(TotalFatalities = sum(FATALITIES),
+                 TotalInjuries = sum(INJURIES),
+                 TotalAffected = sum(FATALITIES)+sum(INJURIES)) %>%
+       arrange(desc(TotalAffected)) ## dplyr
+## Find in the top 10
+TopTen <- groupdat[1:10,]
